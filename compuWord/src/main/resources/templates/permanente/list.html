@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{permanente.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{permanente.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/permanentes/add}" class="btn btn-primary ms-2">[[#{permanente.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${permanentes.empty}">[[#{permanente.list.empty}]]</div>
+            <div th:if="${!permanentes.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{permanente.contratoAnual.label}]]</th>
+                            <th scope="col">[[#{permanente.sueldo.label}]]</th>
+                            <th scope="col">[[#{permanente.fechaIngreso.label}]]</th>
+                            <th scope="col">[[#{permanente.cargo.label}]]</th>
+                            <th scope="col">[[#{permanente.permanente.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="permanente : ${permanentes}">
+                            <td>[[${permanente.contratoAnual}]]</td>
+                            <td>[[${permanente.sueldo}]]</td>
+                            <td>[[${permanente.fechaIngreso}]]</td>
+                            <td>[[${permanente.cargo}]]</td>
+                            <td>[[${permanente.permanente}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/permanentes/edit/{contratoAnual}(contratoAnual=${permanente.contratoAnual})}" class="btn btn-sm btn-secondary">[[#{permanente.list.edit}]]</a>
+                                    <form th:action="@{/permanentes/delete/{contratoAnual}(contratoAnual=${permanente.contratoAnual})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{permanente.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

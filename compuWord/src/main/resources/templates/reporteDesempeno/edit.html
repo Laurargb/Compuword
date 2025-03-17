@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{reporteDesempeno.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{reporteDesempeno.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/reporteDesempenos}" class="btn btn-secondary">[[#{reporteDesempeno.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('reporteDesempeno')}" />
+            <form th:action="${requestUri}" method="post" novalidate="">
+                <div th:replace="~{fragments/forms::inputRow(object='reporteDesempeno', field='datosEmpleado', disabled=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='reporteDesempeno', field='datosDepartamento', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='reporteDesempeno', field='empleado', type='textarea')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='reporteDesempeno', field='departamento', type='textarea')}" />
+                <input type="submit" th:value="#{reporteDesempeno.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

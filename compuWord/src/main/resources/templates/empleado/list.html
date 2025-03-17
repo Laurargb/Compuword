@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{empleado.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{empleado.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/empleados/add}" class="btn btn-primary ms-2">[[#{empleado.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${empleadoes.empty}">[[#{empleado.list.empty}]]</div>
+            <div th:if="${!empleadoes.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{empleado.nombre.label}]]</th>
+                            <th scope="col">[[#{empleado.id.label}]]</th>
+                            <th scope="col">[[#{empleado.correoElectronico.label}]]</th>
+                            <th scope="col">[[#{empleado.departament.label}]]</th>
+                            <th scope="col">[[#{empleado.empleado1.label}]]</th>
+                            <th scope="col">[[#{empleado.empleado2.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="empleado : ${empleadoes}">
+                            <td>[[${empleado.nombre}]]</td>
+                            <td>[[${empleado.id}]]</td>
+                            <td>[[${empleado.correoElectronico}]]</td>
+                            <td>[[${empleado.departament}]]</td>
+                            <td>[[${empleado.empleado1}]]</td>
+                            <td>[[${empleado.empleado2}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/empleados/edit/{nombre}(nombre=${empleado.nombre})}" class="btn btn-sm btn-secondary">[[#{empleado.list.edit}]]</a>
+                                    <form th:action="@{/empleados/delete/{nombre}(nombre=${empleado.nombre})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{empleado.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

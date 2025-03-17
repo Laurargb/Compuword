@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{reporteDesempeno.list.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{reporteDesempeno.list.headline}]]</h1>
+                <div>
+                    <a th:href="@{/reporteDesempenos/add}" class="btn btn-primary ms-2">[[#{reporteDesempeno.list.createNew}]]</a>
+                </div>
+            </div>
+            <div th:if="${reporteDesempenoes.empty}">[[#{reporteDesempeno.list.empty}]]</div>
+            <div th:if="${!reporteDesempenoes.empty}" class="table-responsive">
+                <table class="table table-striped table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th scope="col">[[#{reporteDesempeno.datosEmpleado.label}]]</th>
+                            <th><!-- --></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reporteDesempeno : ${reporteDesempenoes}">
+                            <td>[[${reporteDesempeno.datosEmpleado}]]</td>
+                            <td>
+                                <div class="float-end text-nowrap">
+                                    <a th:href="@{/reporteDesempenos/edit/{datosEmpleado}(datosEmpleado=${reporteDesempeno.datosEmpleado})}" class="btn btn-sm btn-secondary">[[#{reporteDesempeno.list.edit}]]</a>
+                                    <form th:action="@{/reporteDesempenos/delete/{datosEmpleado}(datosEmpleado=${reporteDesempeno.datosEmpleado})}"
+                                            th:data-confirm-message="#{delete.confirm}" method="post" class="js-submit-confirm d-inline">
+                                        <button type="submit" class="btn btn-sm btn-secondary">[[#{reporteDesempeno.list.delete}]]</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

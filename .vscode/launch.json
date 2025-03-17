@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CompuWordApplication<compuWord>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "io.bootify.compu_word.CompuWordApplication",
+            "projectName": "compuWord",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

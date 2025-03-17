@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{permanente.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{permanente.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/permanentes}" class="btn btn-secondary">[[#{permanente.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('permanente')}" />
+            <form th:action="${requestUri}" method="post" novalidate="">
+                <div th:replace="~{fragments/forms::inputRow(object='permanente', field='contratoAnual', disabled=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='permanente', field='sueldo', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='permanente', field='fechaIngreso', inputClass='js-datetimepicker')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='permanente', field='cargo')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='permanente', field='permanente', required=true, type='select')}" />
+                <input type="submit" th:value="#{permanente.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>

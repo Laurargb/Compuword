@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layout}">
+    <head>
+        <title>[[#{empleado.edit.headline}]]</title>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div class="d-flex flex-wrap mb-4">
+                <h1 class="flex-grow-1">[[#{empleado.edit.headline}]]</h1>
+                <div>
+                    <a th:href="@{/empleados}" class="btn btn-secondary">[[#{empleado.edit.back}]]</a>
+                </div>
+            </div>
+            <div th:replace="~{fragments/forms::globalErrors('empleado')}" />
+            <form th:action="${requestUri}" method="post" novalidate="">
+                <div th:replace="~{fragments/forms::inputRow(object='empleado', field='nombre', disabled=true)}" />
+                <div th:replace="~{fragments/forms::inputRow(object='empleado', field='id', type='number')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='empleado', field='correoElectronico')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='empleado', field='departament')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='empleado', field='empleado1', type='select')}" />
+                <div th:replace="~{fragments/forms::inputRow(object='empleado', field='empleado2', required=true, type='select')}" />
+                <input type="submit" th:value="#{empleado.edit.headline}" class="btn btn-primary mt-4" />
+            </form>
+        </div>
+    </body>
+</html>
