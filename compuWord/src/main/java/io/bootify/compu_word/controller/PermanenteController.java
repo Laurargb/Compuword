@@ -7,6 +7,10 @@ import io.bootify.compu_word.service.PermanenteService;
 import io.bootify.compu_word.util.CustomCollectors;
 import io.bootify.compu_word.util.WebUtils;
 import jakarta.validation.Valid;
+
+import java.util.Arrays;
+import java.util.List;
+
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +21,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 @Controller
 @RequestMapping("/permanentes")
@@ -32,11 +35,41 @@ public class PermanenteController {
         this.empleadoRepository = empleadoRepository;
     }
 
+    // Clase interna para manejar las opciones del select
+    public static class TipoPermanente {
+        private final Long id;
+        private final String nombre;
+
+        public TipoPermanente(Long id, String nombre) {
+            this.id = id;
+            this.nombre = nombre;
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+    }
+
     @ModelAttribute
     public void prepareContext(final Model model) {
         model.addAttribute("permanenteValues", empleadoRepository.findAll(Sort.by("nombre"))
                 .stream()
                 .collect(CustomCollectors.toSortedMap(Empleado::getNombre, Empleado::getNombre)));
+        
+        // Agregar las opciones para el select
+        model.addAttribute("tipoPermanentes", getOpcionesPermanente());
+    }
+
+    private List<TipoPermanente> getOpcionesPermanente() {
+        return Arrays.asList(
+            new TipoPermanente(1L, "Temporal"),
+            new TipoPermanente(2L, "Contrato fijo"),
+            new TipoPermanente(3L, "Indefinido")
+        );
     }
 
     @GetMapping
@@ -87,5 +120,4 @@ public class PermanenteController {
         redirectAttributes.addFlashAttribute(WebUtils.MSG_INFO, WebUtils.getMessage("permanente.delete.success"));
         return "redirect:/permanentes";
     }
-
 }

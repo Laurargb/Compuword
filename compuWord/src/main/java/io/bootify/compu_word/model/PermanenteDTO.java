@@ -11,6 +11,9 @@ import lombok.Setter;
 @Setter
 public class PermanenteDTO {
 
+    private Long id;
+    private String nombre;
+
     @Size(max = 255)
     @PermanenteContratoAnualValid
     private String contratoAnual;
